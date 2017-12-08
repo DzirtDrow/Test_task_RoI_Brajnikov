@@ -28,18 +28,32 @@ public class FileProcessingThread implements Runnable {
         PropertiesLoader propertiesLoader = new PropertiesLoader();
         Path inputPath = propertiesLoader.getInputPath();
         Path outputPath = propertiesLoader.getOutputPath();
-        String inputFileName = "//file1.csv";
+        String inputFileName = "file1.csv";
 
-        CSVReader csvReader = new CSVReader(Paths.get(inputPath + inputFileName));
+        CSVReader csvReader = new CSVReader(Paths.get(inputPath + "\\" + inputFileName));
         List<LineOfFile> list = csvReader.readLinesOfFile();
         LinesTreatment linesTreatment = new LinesTreatment(list); //TODO: rename to ListHandler??
         DateUsers dateUsers = linesTreatment.getDateUsersList();
 
+        Map map;
 
-        File outputFile = new File(outputPath + "\\avg_" + inputFileName);
+        //File outputFile = new File(outputPath + "\\avg_" + inputFileName);
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream("D:\\Work\\Andrey\\Java\\IdeaProjects\\Test_task_RoI_Brajnikov\\Output\\avg_file1.csv"), "utf-8"))) {
-
+                new FileOutputStream(outputPath + "\\avg_" + inputFileName), "utf-8"))) {
+            map = dateUsers.getDateUsers();
+            map.forEach((key, value) -> {
+                System.out.println(key + " " + value);
+                try {
+                    writer.write(key.toString() + "\n");
+                    List<UserUrlTime> userUrlTimeList = ((OneDateArray)value).getUserUrlTimeList();
+                    for (UserUrlTime userUrlTime : userUrlTimeList) {
+                        //System.out.println(userUrlTime);
+                        writer.write(userUrlTime.getUser() + ", " + userUrlTime.getUrl() + ", " + userUrlTime.getTime() + "\n");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
 
             //writer.write(dateUsers.toString());
 

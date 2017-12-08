@@ -5,21 +5,21 @@ import java.util.Date;
 import java.util.List;
 
 public class OneDateArray {
-    private Date date;
-    private List<String> stringArrayList = new ArrayList<>();
+    private String date;
+    //private List<String> stringArrayList = new ArrayList<>();
     private List<UserUrlTime> userUrlTimeList = new ArrayList<>();
 
-    public OneDateArray(Date date) {
+    public OneDateArray(String date) {
         this.date = date;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public List<String> getStringArrayList() {
-        return stringArrayList;
-    }
+//    public List<String> getStringArrayList() {
+//        return stringArrayList;
+//    }
 
     public List<UserUrlTime> getUserUrlTimeList() {
         return userUrlTimeList;
@@ -31,5 +31,11 @@ public class OneDateArray {
     }
 
 
-
+    @Override
+    public String toString() {
+        return "OneDateArray{" +
+                "date='" + date + '\'' +
+                ", userUrlTimeList=" + userUrlTimeList +
+                '}';
+    }
 }

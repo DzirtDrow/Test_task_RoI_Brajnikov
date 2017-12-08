@@ -34,4 +34,13 @@ public class UserUrlTime {
     public void setTime(long time) {
         this.time = time;
     }
+
+    @Override
+    public String toString() {
+        return "UserUrlTime{" +
+                "user='" + user + '\'' +
+                ", url='" + url + '\'' +
+                ", time=" + time +
+                '}';
+    }
 }
