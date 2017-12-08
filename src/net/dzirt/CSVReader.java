@@ -48,7 +48,7 @@ public class CSVReader {
                     else if (index == 2)
                         lineOfFile.setUrl(data);
                     else if (index == 3)
-                        lineOfFile.setTime(data);
+                        lineOfFile.setTime(Long.parseLong(data));
                     else
                         System.out.println("Некорректные данные: " + data);
                     index++;

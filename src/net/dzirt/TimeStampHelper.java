@@ -10,7 +10,7 @@ public class TimeStampHelper {
         return calendar.get(Calendar.DAY_OF_YEAR);
     }
 
-    public static Date timeStampToDayDate (long timeStamp){
+    public static Date timeStampToDate (long timeStamp){
         Date date = new Date(timeStamp * 1000);
         return date;
     }
