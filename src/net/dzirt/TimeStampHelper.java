@@ -2,6 +2,8 @@ package net.dzirt;
 
 import java.util.*;
 public class TimeStampHelper {
+    public static final long SECONDS_IN_DAY = 24*60*60;
+
 
     public static int timeStampToDayOfYear (long timeStamp){
         Date date = new Date(timeStamp * 1000);

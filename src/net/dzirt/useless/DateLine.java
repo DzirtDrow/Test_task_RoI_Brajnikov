@@ -1,4 +1,6 @@
-package net.dzirt;
+package net.dzirt.useless;
+
+import net.dzirt.UserUrlTime;
 
 import java.util.Date;
 
@@ -10,4 +12,5 @@ public class DateLine {
         this.date = date;
         this.userUrlTime = userUrlTime;
     }
+
 }

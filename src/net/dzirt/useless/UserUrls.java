@@ -1,4 +1,6 @@
-package net.dzirt;
+package net.dzirt.useless;
+
+import net.dzirt.UrlTimeArray;
 
 import java.util.HashMap;
 import java.util.Map;

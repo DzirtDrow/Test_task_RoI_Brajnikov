@@ -1,30 +1,21 @@
 package net.dzirt;
 
 public class UserUrlTime {
-    private String user;
-    private String url;
+    private String userUrl;
     private long time;
 
-    public UserUrlTime(String user, String url, long time) {
-        this.user = user;
-        this.url = url;
+    public UserUrlTime(String userUrl, long time) {
+        this.userUrl = userUrl;
         this.time = time;
     }
 
-    public String getUser() {
-        return user;
+
+    public String getUserUrl() {
+        return userUrl;
     }
 
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
+    public void setUserUrl(String url) {
+        this.userUrl = userUrl;
     }
 
     public long getTime() {
@@ -38,8 +29,8 @@ public class UserUrlTime {
     @Override
     public String toString() {
         return "UserUrlTime{" +
-                "user='" + user + '\'' +
-                ", url='" + url + '\'' +
+
+                ", user url='" + userUrl + '\'' +
                 ", time=" + time +
                 '}';
     }

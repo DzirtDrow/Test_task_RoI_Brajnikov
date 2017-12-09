@@ -50,16 +50,7 @@ public class PropertiesLoader {
 
 
 
-//        File []fList;
-//        File F = new File(pl.inputFilePath);
-//
-//        fList = F.listFiles();
-//
-//        for(int i=0; i<fList.length; i++)
-//        {
-//            if(fList[i].isFile())
-//                System.out.println(String.valueOf(i) + " - " + fList[i].getName());
-//        }
+
     }
 
     public Path getInputPath() {

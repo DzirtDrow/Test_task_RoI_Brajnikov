@@ -1,9 +1,6 @@
 package net.dzirt;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -11,21 +8,25 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CSVReader {
-    private Path inputFilePath;
+    private File inputFile;
     private List<LineOfFile> linesList = new ArrayList<>();
 
-    public CSVReader(Path inputFilePath) {
-        this.inputFilePath = inputFilePath;
+//    public CSVReader(Path inputFilePath) {
+//        this.inputFilePath = inputFilePath;
+//    }
+
+    public CSVReader(File inputFile) {
+        this.inputFile = inputFile;
     }
 
-    public void setInputFilePath(Path inputFilePath) {
-        this.inputFilePath = inputFilePath;
-    }
+//    public void setInputFilePath(Path inputFilePath) {
+//        this.inputFilePath = inputFilePath;
+//    }
 
     public List readLinesOfFile(){
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new FileReader(String.valueOf(inputFilePath)));
+            reader = new BufferedReader(new FileReader(inputFile));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

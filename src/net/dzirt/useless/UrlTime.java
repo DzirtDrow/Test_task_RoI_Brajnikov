@@ -1,4 +1,4 @@
-package net.dzirt;
+package net.dzirt.useless;
 
 public class UrlTime {
     private String url;

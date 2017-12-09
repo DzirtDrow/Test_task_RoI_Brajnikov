@@ -1,13 +1,10 @@
 package net.dzirt;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 public class DateUsers {
-    private Map dateUsers = new HashMap<String, OneDateArray>();
+    private Map dateUsers = new TreeMap<String, OneDateArray>();
 
     public void addDateUser(String date, String userID, String url, long time) {
         OneDateArray oneDateArray = (OneDateArray) dateUsers.get(date);

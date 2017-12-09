@@ -1,8 +1,7 @@
 package net.dzirt;
 
 import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -11,6 +10,7 @@ public class FileProcessingThread implements Runnable {
     private Path inputFilePath;
     private Path outputFilePath;
     private String inputFileName = "//file1.csv";
+    private File currentFile;
 
 
     public FileProcessingThread(Path inputFilePath, Path outputFilePath){
@@ -18,28 +18,32 @@ public class FileProcessingThread implements Runnable {
         this.outputFilePath = outputFilePath;
     }
 
+    public FileProcessingThread(Path inputFilePath, Path outputFilePath, String inputFileName) {
+        this.inputFilePath = inputFilePath;
+        this.outputFilePath = outputFilePath;
+        this.inputFileName = inputFileName;
+    }
+
+    public FileProcessingThread(Path outputFilePath, File currentFile) {
+        this.outputFilePath = outputFilePath;
+        this.currentFile = currentFile;
+    }
+
     @Override
     public void run() {
 
-    }
+        //String inputFileName = "file1.csv";
+        System.out.println("обработка файла " + currentFile.toString() + " началась");
 
-    public static void main(String[] args) {
-
-        PropertiesLoader propertiesLoader = new PropertiesLoader();
-        Path inputPath = propertiesLoader.getInputPath();
-        Path outputPath = propertiesLoader.getOutputPath();
-        String inputFileName = "file1.csv";
-
-        CSVReader csvReader = new CSVReader(Paths.get(inputPath + "\\" + inputFileName));
+        CSVReader csvReader = new CSVReader(currentFile);
         List<LineOfFile> list = csvReader.readLinesOfFile();
         LinesTreatment linesTreatment = new LinesTreatment(list); //TODO: rename to ListHandler??
         DateUsers dateUsers = linesTreatment.getDateUsersList();
 
         Map map;
 
-        //File outputFile = new File(outputPath + "\\avg_" + inputFileName);
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(outputPath + "\\avg_" + inputFileName), "utf-8"))) {
+                new FileOutputStream(outputFilePath + "\\avg_" + currentFile.getName()), "utf-8"))) {
             map = dateUsers.getDateUsers();
             map.forEach((key, value) -> {
                 //System.out.println(key + " " + value);
@@ -48,21 +52,24 @@ public class FileProcessingThread implements Runnable {
                     List<UserUrlTime> userUrlTimeList = ((OneDateArray)value).getUserUrlTimeList();
                     for (UserUrlTime userUrlTime : userUrlTimeList) {
                         //System.out.println(userUrlTime);
-                        writer.write(userUrlTime.getUser() + ", " + userUrlTime.getUrl() + ", " + userUrlTime.getTime() + "\n");
+                        writer.write(userUrlTime.getUserUrl() + ", " + userUrlTime.getTime() + "\n");
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
-
-            //writer.write(dateUsers.toString());
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("обработка файла " + currentFile.toString() + " закончилась");
+    }
 
-
-        //System.out.println(dateUsers);
+    public static void main(String[] args) {
+        PropertiesLoader propertiesLoader = new PropertiesLoader();
+        Path inputPath = propertiesLoader.getInputPath();
+        Path outputPath = propertiesLoader.getOutputPath();
+        FileProcessingThread testThread = new FileProcessingThread(inputPath, outputPath);
+        testThread.run();
 
     }
 }

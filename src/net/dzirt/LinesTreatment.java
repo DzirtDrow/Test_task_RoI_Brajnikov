@@ -11,11 +11,6 @@ public class LinesTreatment {
         this.inputList = inputList;
     }
 
-//    public OneDateArray getOneDateArray (){
-//        //OneDateArray oneDateArray = new OneDateArray();
-//        //return oneDateArray;
-//    }
-
     public DateUsers getDateUsersList() {
         DateUsers dateUsers = new DateUsers();
 
@@ -25,28 +20,24 @@ public class LinesTreatment {
 
             if(dayFinish == dayStart) {
                 Date t = TimeStampHelper.timeStampToDate(inputList.get(i).getTimeStamp());
-                //System.out.println(" t[" + i + "] - " + t);
                 SimpleDateFormat dateFormat  = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
                 String date = dateFormat.format(t);
-                //System.out.println(i + " - " + date);
                 dateUsers.addDateUser(  date,
                         inputList.get(i).getId(),
                         inputList.get(i).getUrl(),
                         inputList.get(i).getTime()
                 );
             } else {
-                //System.out.println(startDay + "   " + nextDay);
                 List<Long> timesList = new ArrayList<>();
-
                 Date startDay = TimeStampHelper.getDayMonthYear(inputList.get(i).getTimeStamp());
                 Date nextDay = new Date(startDay.getTime());
                 nextDay.setDate(nextDay.getDate() + 1);
                 Long time = nextDay.getTime() - inputList.get(i).getTimeStamp()*1000;
-                timesList.add(time / 1000);                             //Adding First Date Time
+                timesList.add(time / 1000);
 
                 if (dayFinish - dayStart > 1) {
                     for (int j = dayStart+1; j < dayFinish; j++){
-                        timesList.add((long)24*60*60);
+                        timesList.add(TimeStampHelper.SECONDS_IN_DAY);
                     }
                 }
 
@@ -67,9 +58,6 @@ public class LinesTreatment {
                     s++;
                     d.setDate(d.getDate() + 1);
                 }
-
-
-
             }
         }
         return dateUsers;
