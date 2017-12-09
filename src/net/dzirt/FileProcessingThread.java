@@ -3,26 +3,11 @@ package net.dzirt;
 import java.io.*;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 
 public class FileProcessingThread implements Runnable {
-    private Path inputFilePath;
-    private Path outputFilePath;
-    private String inputFileName = "//file1.csv";
+    private Path outputFilePath; //One output file corresponds to one input file
     private File currentFile;
-
-
-    public FileProcessingThread(Path inputFilePath, Path outputFilePath){
-        this.inputFilePath = inputFilePath;
-        this.outputFilePath = outputFilePath;
-    }
-
-    public FileProcessingThread(Path inputFilePath, Path outputFilePath, String inputFileName) {
-        this.inputFilePath = inputFilePath;
-        this.outputFilePath = outputFilePath;
-        this.inputFileName = inputFileName;
-    }
 
     public FileProcessingThread(Path outputFilePath, File currentFile) {
         this.outputFilePath = outputFilePath;
@@ -31,28 +16,21 @@ public class FileProcessingThread implements Runnable {
 
     @Override
     public void run() {
+        CSVReader csvReader = new CSVReader(currentFile);           //Creating reader for one input csv file
+        List<LineOfFile> list = csvReader.readLinesOfFile();        //Getting list of lines from csv file
 
-        //String inputFileName = "file1.csv";
-        System.out.println("обработка файла " + currentFile.toString() + " началась");
-
-        CSVReader csvReader = new CSVReader(currentFile);
-        List<LineOfFile> list = csvReader.readLinesOfFile();
-        LinesTreatment linesTreatment = new LinesTreatment(list); //TODO: rename to ListHandler??
-        DateUsers dateUsers = linesTreatment.getDateUsersList();
-
-        Map map;
+        LinesHandler linesHandler = new LinesHandler(list);         //Creating object to handle list of lines
+        DateUsers dateUsers = linesHandler.getDateUsersList();      //Handling list to get map with Dates and lists of users-urls-avg times
 
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(outputFilePath + "\\avg_" + currentFile.getName()), "utf-8"))) {
-            map = dateUsers.getDateUsers();
-            map.forEach((key, value) -> {
-                //System.out.println(key + " " + value);
+                new FileOutputStream(outputFilePath + "\\avg_" + currentFile.getName()), "utf-8"))) { //Creating output file with "avg_" prefix, and pu it into output folder
+
+            dateUsers.getDateUsers().forEach((key, value) -> { //Getting Dates and lists of values from map
                 try {
-                    writer.write(key.toString() + "\n");
-                    List<UserUrlTime> userUrlTimeList = ((OneDateArray)value).getUserUrlTimeList();
+                    writer.write(key.toString() + "\n");    //Wtite Date to file
+                    List<UserUrlTime> userUrlTimeList = ((OneDateArray)value).getUserUrlTimeList(); //Creating list from value of map
                     for (UserUrlTime userUrlTime : userUrlTimeList) {
-                        //System.out.println(userUrlTime);
-                        writer.write(userUrlTime.getUserUrl() + ", " + userUrlTime.getTime() + "\n");
+                        writer.write(userUrlTime.getUserUrl() + ", " + userUrlTime.getTime() + "\n"); // Write to file list of user-url-avgtimes
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -61,15 +39,6 @@ public class FileProcessingThread implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("обработка файла " + currentFile.toString() + " закончилась");
     }
 
-    public static void main(String[] args) {
-        PropertiesLoader propertiesLoader = new PropertiesLoader();
-        Path inputPath = propertiesLoader.getInputPath();
-        Path outputPath = propertiesLoader.getOutputPath();
-        FileProcessingThread testThread = new FileProcessingThread(inputPath, outputPath);
-        testThread.run();
-
-    }
 }

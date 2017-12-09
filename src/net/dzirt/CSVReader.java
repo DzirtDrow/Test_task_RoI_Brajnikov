@@ -1,8 +1,6 @@
 package net.dzirt;
 
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,71 +9,49 @@ public class CSVReader {
     private File inputFile;
     private List<LineOfFile> linesList = new ArrayList<>();
 
-//    public CSVReader(Path inputFilePath) {
-//        this.inputFilePath = inputFilePath;
-//    }
-
     public CSVReader(File inputFile) {
         this.inputFile = inputFile;
     }
 
-//    public void setInputFilePath(Path inputFilePath) {
-//        this.inputFilePath = inputFilePath;
-//    }
-
     public List readLinesOfFile(){
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new FileReader(inputFile));
+            reader = new BufferedReader(new FileReader(inputFile)); //Creating reader of CSV file
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        // read lines
+        //Read lines of CSV files
         String line = null;
         Scanner scanner = null;
         int index = 0;
         try {
             while ((line = reader.readLine()) != null) {
-                LineOfFile lineOfFile = new LineOfFile();
-                scanner = new Scanner(line);
-                scanner.useDelimiter(",");
+                LineOfFile lineOfFile = new LineOfFile(); // Read one line
+                scanner = new Scanner(line);    //And then disassemling this line to 4 rows
+                scanner.useDelimiter(",");      //by "," delimiter
                 while (scanner.hasNext()) {
                     String data = scanner.next();
                     if (index == 0)
-                        lineOfFile.setTimeStamp(Long.parseLong(data));
+                        lineOfFile.setTimeStamp(Long.parseLong(data));  //Getting timestamp
                     else if (index == 1)
-                        lineOfFile.setId(data);
+                        lineOfFile.setId(data);                         //Getting user id
                     else if (index == 2)
-                        lineOfFile.setUrl(data);
+                        lineOfFile.setUrl(data);                        //Getting url
                     else if (index == 3)
-                        lineOfFile.setTime(Long.parseLong(data));
+                        lineOfFile.setTime(Long.parseLong(data));       //Getting time
                     else
-                        System.out.println("Некорректные данные: " + data);
+                        System.out.println("incorrect data " + data);
                     index++;
                 }
                 index = 0;
-                linesList.add(lineOfFile);
+                linesList.add(lineOfFile);                              //Adding line to List of lines
             }
             reader.close();
-
-            //System.out.println(linesList);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
         return linesList;
     }
-
-
-    public List<LineOfFile> getLinesList() {
-        return linesList;
-    }
-
-//    public static void main(String[] args) {
-//        CSVReader csvReader = new CSVReader(Paths.get("D:\\Work\\Andrey\\Java\\IdeaProjects\\Test_task_RoI_Brajnikov\\Input\\file1.csv"));
-//        List<LineOfFile> list = csvReader.readLinesOfFile();
-//        System.out.println(list);
-//    }
 
 }

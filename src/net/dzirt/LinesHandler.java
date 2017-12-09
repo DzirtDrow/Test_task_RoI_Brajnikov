@@ -4,10 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 
-public class LinesTreatment {
+public class LinesHandler {
     private List<LineOfFile> inputList;
 
-    public LinesTreatment(List<LineOfFile> inputList) {
+    public LinesHandler(List<LineOfFile> inputList) {
         this.inputList = inputList;
     }
 

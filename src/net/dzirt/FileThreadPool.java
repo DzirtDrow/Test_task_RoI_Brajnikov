@@ -6,32 +6,23 @@ import java.util.concurrent.*;
 
 
 public class FileThreadPool {
-    public static void main(String[] args) {
-        PropertiesLoader propertiesLoader = new PropertiesLoader();
-        Path inputPath = propertiesLoader.getInputPath();
-        Path outputPath = propertiesLoader.getOutputPath();
+    private Path inputPath;
+    private Path outputPath;
 
-        File[] fList;
-        File F = new File(String.valueOf(inputPath));
-
-        fList = F.listFiles();
-
-        for(int i=0; i<fList.length; i++)
-        {
-            if(fList[i].isFile())
-                System.out.println(String.valueOf(i) + " - " + fList[i].getName());
-        }
-
-        ExecutorService threadPool = Executors.newFixedThreadPool(10);
-        for (int i = 0; i<fList.length; i++) {
-            threadPool.submit(new FileProcessingThread(outputPath, fList[i]));
-        }
-        threadPool.shutdown();
-
-
-        //FileProcessingThread testThread = new FileProcessingThread(inputPath, outputPath);
-        //testThread.run();
+    public FileThreadPool(Path inputPath, Path outputPath) {
+        this.inputPath = inputPath;
+        this.outputPath = outputPath;
     }
 
+    public void startProcessing() {
+        File[] fList;               //Creating of list files in input folder
+        File F = new File(String.valueOf(inputPath));
+        fList = F.listFiles();
 
+        ExecutorService threadPool = Executors.newFixedThreadPool(10); //Creating pool of 10 threads
+        for (int i = 0; i<fList.length; i++) {
+            threadPool.submit(new FileProcessingThread(outputPath, fList[i])); //And then load all files in queue (if files more than 10, they are waiting for the release threads
+        }
+        threadPool.shutdown(); //End of using threadpool
+    }
 }
