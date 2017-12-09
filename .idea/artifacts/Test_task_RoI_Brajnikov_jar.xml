@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Test_task_RoI_Brajnikov:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Test_task_RoI_Brajnikov_jar</output-path>
+    <root id="archive" name="Test_task_RoI_Brajnikov.jar">
+      <element id="module-output" name="Test_task_RoI_Brajnikov" />
+    </root>
+  </artifact>
+</component>

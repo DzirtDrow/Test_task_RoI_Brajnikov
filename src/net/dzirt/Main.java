@@ -1,17 +1,26 @@
 package net.dzirt;
 
+import java.io.File;
 import java.nio.file.Path;
 
 public class Main {
-    private static String propertiesFilePath = "properties4.ini"; //ini file with input and output folder paths
+    private static String propertiesFilePath = "properties.ini"; //ini file with input and output folder paths
 
     public static void main(String[] args)  {
-        PropertiesLoader propertiesLoader = new PropertiesLoader(propertiesFilePath); //FLoad properties from .ini file
+        PropertiesLoader propertiesLoader = new PropertiesLoader(propertiesFilePath); //Load properties from .ini file
         Path inputPath = propertiesLoader.getInputPath();
         Path outputPath = propertiesLoader.getOutputPath();
 
-        FileThreadPool fileThreadPool = new FileThreadPool(inputPath, outputPath); //Create new thread pool using input and output paths
-        fileThreadPool.startProcessing();   //And then start it
-
+        File inputFolder = new File(String.valueOf(inputPath));
+        if(inputFolder.exists()) {
+            File outputFolder = new File(String.valueOf(outputPath));
+            if (!outputFolder.exists()) {
+                outputFolder.mkdir(); //creating output folder
+            }
+            FileThreadPool fileThreadPool = new FileThreadPool(inputPath, outputPath); //Create new thread pool using input and output paths
+            fileThreadPool.startProcessing();   //And then start it
+        } else {
+            System.out.println("Input folder not found!");
+        }
     }
 }

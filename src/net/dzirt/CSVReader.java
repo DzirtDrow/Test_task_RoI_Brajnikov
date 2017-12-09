@@ -20,9 +20,7 @@ public class CSVReader {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-        //Read lines of CSV files
-        String line = null;
+        String line = null; //Read lines of CSV files
         Scanner scanner = null;
         int index = 0;
         try {
