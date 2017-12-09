@@ -42,7 +42,7 @@ public class FileProcessingThread implements Runnable {
                 new FileOutputStream(outputPath + "\\avg_" + inputFileName), "utf-8"))) {
             map = dateUsers.getDateUsers();
             map.forEach((key, value) -> {
-                System.out.println(key + " " + value);
+                //System.out.println(key + " " + value);
                 try {
                     writer.write(key.toString() + "\n");
                     List<UserUrlTime> userUrlTimeList = ((OneDateArray)value).getUserUrlTimeList();
@@ -62,7 +62,7 @@ public class FileProcessingThread implements Runnable {
         }
 
 
-        System.out.println(dateUsers);
+        //System.out.println(dateUsers);
 
     }
 }

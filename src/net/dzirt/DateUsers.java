@@ -18,7 +18,6 @@ public class DateUsers {
         } else {
             OneDateArray oda = (OneDateArray) dateUsers.get(date);
             oda.addUserUrlTime(userID,url,time);
-
         }
 //        UserUrls userUrls = (UserUrls) dateUsers.get(date);
 //        if (userUrls == null){

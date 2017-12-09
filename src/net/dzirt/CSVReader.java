@@ -71,10 +71,10 @@ public class CSVReader {
         return linesList;
     }
 
-    public static void main(String[] args) {
-        CSVReader csvReader = new CSVReader(Paths.get("D:\\Work\\Andrey\\Java\\IdeaProjects\\Test_task_RoI_Brajnikov\\Input\\file1.csv"));
-        List<LineOfFile> list = csvReader.readLinesOfFile();
-        System.out.println(list);
-    }
+//    public static void main(String[] args) {
+//        CSVReader csvReader = new CSVReader(Paths.get("D:\\Work\\Andrey\\Java\\IdeaProjects\\Test_task_RoI_Brajnikov\\Input\\file1.csv"));
+//        List<LineOfFile> list = csvReader.readLinesOfFile();
+//        System.out.println(list);
+//    }
 
 }
