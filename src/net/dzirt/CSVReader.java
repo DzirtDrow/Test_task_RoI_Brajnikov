@@ -24,7 +24,7 @@ public class CSVReader {
         Scanner scanner;
         int index = 0;
         try {
-            if((reader.readLine()) != null) { // reading Header of csv file ( it is not used in the future)
+            if((reader.readLine()) != null) { // reading Header of csv file (it is not used in the future)
                 while ((line = reader.readLine()) != null) {
                     LineOfFile lineOfFile = new LineOfFile(); // Read one line
                     scanner = new Scanner(line);    //And then disassemling this line to 4 rows

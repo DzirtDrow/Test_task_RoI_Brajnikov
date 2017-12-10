@@ -13,7 +13,6 @@ public class FileProcessingThread implements Runnable {
         this.currentFile = currentFile;
     }
 
-
     @Override
     public void run() {
         CSVReader csvReader = new CSVReader(currentFile);           //Creating reader for one input csv file
