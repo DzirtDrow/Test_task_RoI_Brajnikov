@@ -12,9 +12,12 @@ public class TimeStampHelper {
         return calendar.get(Calendar.DAY_OF_YEAR);
     }
 
+//    public static long timeStampToAbsoluteDay(long timeStamp) {
+//        return timeStamp / (24*60*60);
+//    }
+
     public static Date timeStampToDate (long timeStamp){
-        Date date = new Date(timeStamp * 1000);
-        return date;
+        return new Date(timeStamp * 1000);
     }
 
     public static Date getDayMonthYear ( long timeStamp) {
@@ -24,30 +27,14 @@ public class TimeStampHelper {
         date.setSeconds(0);
         return date;
     }
-
-
-    public static void main(String[] args) {
-//        long timeStamp = 1280512800;
-//        Date d1 = new Date(timeStamp * 1000);
-//        long t = 24*60*60*200;
 //
-//        System.out.println(d1);
-//        Date d2 = new Date((timeStamp  + t) * 1000);
-//        if (d2.getDay()>d1.getDay()){
-//            System.out.println("Есть!");
-//        }
-//        System.out.println(d2);
+//    public static void main(String[] args) {
+//        long t = 1455839970;
 //
+//        System.out.println(timeStampToDayOfYear(t));
+//        System.out.println(timeStampToDayOfYear(t + 100000));
+//        System.out.println(timeStampToAbsoluteDay(t));
+//        System.out.println(timeStampToAbsoluteDay(t + 100000));
 //
-//        Calendar c1 = new GregorianCalendar(d1.getYear(),d1.getMonth(),d1.getDate());
-//        System.out.println(c1.get(Calendar.DAY_OF_YEAR));
-//
-//        Calendar c2 = new GregorianCalendar(d2.getYear(),d2.getMonth(),d2.getDate());
-//        System.out.println(c2.get(Calendar.DAY_OF_YEAR));
-//
-//        System.out.println(c2.get(Calendar.DAY_OF_YEAR)-c1.get(Calendar.DAY_OF_YEAR));
-//        long x = d1.getTime()/(24*60*60);
-//        System.out.println(x);
-
-    }
+//    }
 }

@@ -15,7 +15,7 @@ public class UserUrlTime {
     }
 
     public void setUserUrl(String url) {
-        this.userUrl = userUrl;
+        this.userUrl = url;
     }
 
     public long getTime() {
@@ -29,7 +29,6 @@ public class UserUrlTime {
     @Override
     public String toString() {
         return "UserUrlTime{" +
-
                 ", user url='" + userUrl + '\'' +
                 ", time=" + time +
                 '}';

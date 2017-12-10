@@ -1,10 +1,10 @@
 package net.dzirt;
 
 public class LineOfFile {
-    long timeStamp;
-    String id;
-    String url;
-    long time;
+    private long timeStamp;
+    private String id;
+    private String url;
+    private long time;
 
 
     public long getTimeStamp() {

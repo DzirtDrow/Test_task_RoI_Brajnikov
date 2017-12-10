@@ -16,22 +16,19 @@ public class OneDateArray {
 
     public void countAvgTimes(){
         Map<String,AverageCount> userUrlAvg = new TreeMap<>(); //creating map with unique pair "user, url" as key
-        for (int i = 0; i < userUrlTimeList.size(); i++) {
-            String key = userUrlTimeList.get(i).getUserUrl().replace(" ", "");
-            if(userUrlAvg.containsKey(key))
-            {
-                userUrlAvg.get(key).avg =  userUrlAvg.get(key).avg + userUrlTimeList.get(i).getTime();
+        for (UserUrlTime anUserUrlTimeList : userUrlTimeList) {
+            String key = anUserUrlTimeList.getUserUrl().replace(" ", "");
+            if (userUrlAvg.containsKey(key)) {
+                userUrlAvg.get(key).setAvg(userUrlAvg.get(key).getAvg() + anUserUrlTimeList.getTime());
                 userUrlAvg.get(key).countInc();
             } else {
-                userUrlAvg.put(key, new AverageCount(userUrlTimeList.get(i).getTime() , 1));
+                userUrlAvg.put(key, new AverageCount(anUserUrlTimeList.getTime(), 1));
             }
         }
-        userUrlTimeList = new ArrayList<UserUrlTime>();  //recreating this array for placing avg times
+        userUrlTimeList = new ArrayList<>();  //recreating this array for placing avg times
         userUrlAvg.forEach((key, value) -> {
             value.setAvg(value.getAvg() / value.getCount()); //counting average time for every user-url pair
-
             userUrlTimeList.add(new UserUrlTime(key, value.getAvg()));  //add avg times for every user-url pair
-
         });
 
     }
@@ -58,8 +55,8 @@ public class OneDateArray {
 }
 
 class AverageCount{
-    long avg = 0;
-    int count = 0;
+    private long avg = 0;
+    private int count = 0;
 
     public void countInc(){
         count++;

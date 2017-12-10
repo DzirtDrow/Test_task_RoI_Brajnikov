@@ -20,33 +20,35 @@ public class CSVReader {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String line = null; //Read lines of CSV files
-        Scanner scanner = null;
+        String line; //Read lines of CSV files
+        Scanner scanner;
         int index = 0;
         try {
-            while ((line = reader.readLine()) != null) {
-                LineOfFile lineOfFile = new LineOfFile(); // Read one line
-                scanner = new Scanner(line);    //And then disassemling this line to 4 rows
-                scanner.useDelimiter(",");      //by "," delimiter
-                while (scanner.hasNext()) {
-                    String data = scanner.next();
-                    if (index == 0)
-                        lineOfFile.setTimeStamp(Long.parseLong(data));  //Getting timestamp
-                    else if (index == 1)
-                        lineOfFile.setId(data);                         //Getting user id
-                    else if (index == 2)
-                        lineOfFile.setUrl(data);                        //Getting url
-                    else if (index == 3)
-                        lineOfFile.setTime(Long.parseLong(data));       //Getting time
-                    else
-                        System.out.println("incorrect data " + data);
-                    index++;
+            if((reader.readLine()) != null) { // reading Header of csv file ( it is not used in the future)
+                while ((line = reader.readLine()) != null) {
+                    LineOfFile lineOfFile = new LineOfFile(); // Read one line
+                    scanner = new Scanner(line);    //And then disassemling this line to 4 rows
+                    scanner.useDelimiter(",");      //by "," delimiter
+                    while (scanner.hasNext()) {
+                        String data = scanner.next();
+                        if (index == 0)
+                            lineOfFile.setTimeStamp(Long.parseLong(data));  //Getting timestamp
+                        else if (index == 1)
+                            lineOfFile.setId(data);                         //Getting user id
+                        else if (index == 2)
+                            lineOfFile.setUrl(data);                        //Getting url
+                        else if (index == 3)
+                            lineOfFile.setTime(Long.parseLong(data));       //Getting time
+                        else
+                            System.out.println("incorrect data " + data);
+                        index++;
+                    }
+                    index = 0;
+                    linesList.add(lineOfFile);                              //Adding line to List of lines
                 }
-                index = 0;
-                linesList.add(lineOfFile);                              //Adding line to List of lines
             }
             reader.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return linesList;
