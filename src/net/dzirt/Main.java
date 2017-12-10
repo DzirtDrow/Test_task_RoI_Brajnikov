@@ -18,10 +18,8 @@ public class Main {
                 outputFolder.mkdir(); //creating output folder
             }
             FileThreadPool fileThreadPool = new FileThreadPool(inputPath, outputPath); //Create new thread pool using input and output paths
-
-            fileThreadPool.startProcessing();   //And then start it
-            //fileThreadPool.run();
             System.out.println("Processing...");
+            fileThreadPool.startProcessing();   //And then start it
             fileThreadPool.finishProcessing();
         } else {
             System.out.println("Input folder not found!");

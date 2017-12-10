@@ -32,7 +32,6 @@ public class FileThreadPool implements Runnable{
         } else {
             System.out.println("Input folder contains no files");
         }
-
         this.run();
     }
 
