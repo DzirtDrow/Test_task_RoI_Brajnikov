@@ -34,6 +34,7 @@ public class FileProcessingThread implements Runnable {
                     e.printStackTrace();
                 }
             });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
